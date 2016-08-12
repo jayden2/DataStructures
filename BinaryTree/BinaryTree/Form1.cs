@@ -54,57 +54,35 @@ namespace BinaryTree
             top = new Node(baseValue);
         }
 
-        //non recursive add
-        public void Add(int value)
+        //enter value to start node traversal
+        public void startAdd(int value)
         {
-            //if top is null then add node to top as the base node
-            if (top == null)
+            Add(top, value);
+        }
+
+        //recursive add
+        public void Add(Node currentNode, int value)
+        {
+            //if current node is null then add value to that node
+            if (currentNode == null)
             {
                 Node node = new Node(value);
-                top = node;
+                currentNode = node;
                 return;
             }
 
-            //
-            Node currentNode = top;
-            bool traverseTree = true;
-
-            //loop traversal if node is not added
-            while(traverseTree)
+            //if value is less than current nodes value, traverse LEFT
+            if (value < currentNode.value)
             {
-                //traverse LEFT of the tree if value is less than current node
-                if (value < currentNode.value)
-                {
-                    //add node to LEFT if left is null
-                    if (currentNode.left == null)
-                    {
-                        Node node = new Node(value);
-                        currentNode.left = node;
-                        traverseTree = false;
-                    }
-                    else
-                    {
-                        //otherwise make current node the LEFT value to continue searching to add node
-                        currentNode = currentNode.left;
-                    }
-                }
+                Add(currentNode.left, value);
+                return;
+            }
 
-                //traverse RIGHT of the tree if value is more than or equal to current node
-                if (value >= currentNode.value)
-                {
-                    //add node to RIGHT if right is null
-                    if (currentNode.right == null)
-                    {
-                        Node node = new Node(value);
-                        currentNode.right = node;
-                        traverseTree = false;
-                    }
-                    else
-                    {
-                        //otherwise make current node the RIGHT value to continue searching to add node
-                        currentNode = currentNode.right;
-                    }
-                }
+            //if value is more than or equal to current nodes value, traverse RIGHT
+            if (value >= currentNode.value)
+            {
+                Add(currentNode.right, value);
+                return;
             }
         }
     }
