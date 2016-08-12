@@ -16,6 +16,27 @@ namespace BinaryTree
         {
             InitializeComponent();
         }
+        Tree binaryTree;
+
+        //add value button click
+        private void addValue_Click(object sender, EventArgs e)
+        {
+            int num;
+            
+            //try to convert text input to num
+            bool check = Int32.TryParse(numText.Text, out num);
+
+            //if can parse to num add to binary tree
+            if (check)
+            {
+                Console.WriteLine("Adding number: {0}", num);
+                binaryTree.StartAdd(num);
+            }
+            else
+            {
+                Console.WriteLine("Failed to convert: {0}", numText.Text);
+            }
+        }
     }
 
     //create class node
@@ -55,13 +76,13 @@ namespace BinaryTree
         }
 
         //enter value to start node traversal
-        public void startAdd(int value)
+        public void StartAdd(int value)
         {
             Add(top, value);
         }
 
         //recursive add
-        public void Add(Node currentNode, int value)
+        private void Add(Node currentNode, int value)
         {
             //if current node is null then add value to that node
             if (currentNode == null)
