@@ -31,6 +31,7 @@
             this.addValue = new System.Windows.Forms.Button();
             this.numText = new System.Windows.Forms.TextBox();
             this.searchValue = new System.Windows.Forms.Button();
+            this.deleteValue = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addValue
@@ -61,11 +62,23 @@
             this.searchValue.Visible = false;
             this.searchValue.Click += new System.EventHandler(this.searchValue_Click);
             // 
+            // deleteValue
+            // 
+            this.deleteValue.Location = new System.Drawing.Point(460, 70);
+            this.deleteValue.Name = "deleteValue";
+            this.deleteValue.Size = new System.Drawing.Size(99, 23);
+            this.deleteValue.TabIndex = 3;
+            this.deleteValue.Text = "Delete Value";
+            this.deleteValue.UseVisualStyleBackColor = true;
+            this.deleteValue.Visible = false;
+            this.deleteValue.Click += new System.EventHandler(this.deleteValue_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 480);
+            this.Controls.Add(this.deleteValue);
             this.Controls.Add(this.searchValue);
             this.Controls.Add(this.numText);
             this.Controls.Add(this.addValue);
@@ -81,6 +94,7 @@
         private System.Windows.Forms.Button addValue;
         private System.Windows.Forms.TextBox numText;
         private System.Windows.Forms.Button searchValue;
+        private System.Windows.Forms.Button deleteValue;
     }
 }
 

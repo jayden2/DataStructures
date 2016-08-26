@@ -38,6 +38,7 @@ namespace BinaryTree
                     Console.WriteLine("{0} is now the top node", num);
                     firstValue = false;
                     searchValue.Visible = true;
+                    deleteValue.Visible = true;
                 }
                 else
                 {
@@ -47,6 +48,7 @@ namespace BinaryTree
             }
         }
 
+        //search value button click
         private void searchValue_Click(object sender, EventArgs e)
         {
             if (CheckParse(numText.Text))
@@ -58,6 +60,21 @@ namespace BinaryTree
                 Console.WriteLine("Searching for number: {0}", num);
                 //Strart traversal
                 BTree.StartTraverse(num, "search");
+            }
+        }
+
+        //delete value button click
+        private void deleteValue_Click(object sender, EventArgs e)
+        {
+            if (CheckParse(numText.Text))
+            {
+                //Because check parse return true below parse will work
+                int num = Int32.Parse(numText.Text);
+                numText.Text = "";
+                Console.WriteLine("//-------------------------");
+                Console.WriteLine("Deleting number: {0}", num);
+                //Strart traversal
+                BTree.StartTraverse(num, "delete");
             }
         }
 
@@ -77,7 +94,6 @@ namespace BinaryTree
                 return false;
             }
         }
-
     }
 
     //create class node
@@ -124,19 +140,76 @@ namespace BinaryTree
                 case "add":
                     Add(ref top, value);
                     break;
+                case "delete":
+                    Delete(ref top, value);
+                    break;
                 default:
                     Search(ref top, value);
                     break;
             }
             
         }
-        //recurcisve search
-        private void Search(ref Node currentNode, int value)
+        //recursive delete
+        private void Delete(ref Node currentNode, int value)
         {
             //if current node is null then add value to that node
             if (currentNode == null)
             {
-  
+                Console.WriteLine("cannot remove {0} as it wasnt found!", value);
+                return;
+            }
+
+            //if current node's value is equal to what you were looking, value found
+            if (currentNode.value == value)
+            {
+                Console.WriteLine("Found {0}! Preparing to delete", value);
+
+                //case of if current node doesnt have a left or right value then remove if
+                if (currentNode.left == null && currentNode.right == null)
+                {
+                    currentNode = null;
+                    Console.WriteLine("Leaf node of value {0} removed", value);
+                    return;
+                }                
+                //case of if current node has only one child on right
+                if (currentNode.left == null && currentNode.right != null)
+                {
+                    Console.WriteLine("Current node has child on right, moving right child to current node", value);
+                    currentNode = currentNode.right;
+                    return;
+                }
+                //case of if current node has only one child on left
+                if (currentNode.right == null && currentNode.left != null)
+                {
+                    Console.WriteLine("Current node has child on left, moving left child to current node", value);
+                    currentNode = currentNode.left;
+                    return;
+                }
+            }
+
+            //if value is less than current nodes value, traverse LEFT
+            if (value < currentNode.value)
+            {
+                Console.WriteLine("{0} < {1}, going left", value, currentNode.value);
+                Delete(ref currentNode.left, value);
+                return;
+            }
+
+            //if value is more than or equal to current nodes value, traverse RIGHT
+            if (value >= currentNode.value)
+            {
+                Console.WriteLine("{0} >= {1}, going right", value, currentNode.value);
+                Delete(ref currentNode.right, value);
+                return;
+            }
+        }
+
+        //recurcisve search
+        private void Search(ref Node currentNode, int value)
+        {
+            //if current node is null then searched value doesnt exist
+            if (currentNode == null)
+            {
                 Console.WriteLine("{0} not found!", value);
                 return;
             }
@@ -164,6 +237,7 @@ namespace BinaryTree
                 return;
             }
         }
+
         //recursive add
         private void Add(ref Node currentNode, int value)
         {
@@ -193,6 +267,4 @@ namespace BinaryTree
             }
         }
     }
-
-
 }
