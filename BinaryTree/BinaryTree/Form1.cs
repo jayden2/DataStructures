@@ -16,7 +16,9 @@ namespace BinaryTree
         {
             InitializeComponent();
         }
-        Tree binaryTree;
+        //initialise
+        Tree BTree;
+        Boolean firstValue = true;
 
         //add value button click
         private void addValue_Click(object sender, EventArgs e)
@@ -30,7 +32,15 @@ namespace BinaryTree
             if (check)
             {
                 Console.WriteLine("Adding number: {0}", num);
-                binaryTree.StartAdd(num);
+                //check if its the first value of the tree, if so then put it to the top, otherwise just add it to the tree
+                if (firstValue)
+                {
+                    BTree = new Tree(num);
+                }
+                else
+                {
+                    BTree.StartAdd(num);
+                }   
             }
             else
             {
