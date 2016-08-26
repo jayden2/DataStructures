@@ -31,11 +31,14 @@ namespace BinaryTree
             //if can parse to num add to binary tree
             if (check)
             {
+                Console.WriteLine("//-------------------------");
                 Console.WriteLine("Adding number: {0}", num);
                 //check if its the first value of the tree, if so then put it to the top, otherwise just add it to the tree
                 if (firstValue)
                 {
                     BTree = new Tree(num);
+                    Console.WriteLine("{0} is now the top node", num);
+                    firstValue = false;
                 }
                 else
                 {
@@ -88,31 +91,34 @@ namespace BinaryTree
         //enter value to start node traversal
         public void StartAdd(int value)
         {
-            Add(top, value);
+            Add(ref top, value);
         }
 
         //recursive add
-        private void Add(Node currentNode, int value)
+        private void Add(ref Node currentNode, int value)
         {
             //if current node is null then add value to that node
             if (currentNode == null)
             {
                 Node node = new Node(value);
                 currentNode = node;
+                Console.WriteLine("Current node is empty adding {0} here", value);
                 return;
             }
 
             //if value is less than current nodes value, traverse LEFT
             if (value < currentNode.value)
             {
-                Add(currentNode.left, value);
+                Console.WriteLine("{0} is less than {1}, going left", value, currentNode.value);
+                Add(ref currentNode.left, value);
                 return;
             }
 
             //if value is more than or equal to current nodes value, traverse RIGHT
             if (value >= currentNode.value)
             {
-                Add(currentNode.right, value);
+                Console.WriteLine("{0} is more than or equal to {1}, going right", value, currentNode.value);
+                Add(ref currentNode.right, value);
                 return;
             }
         }
