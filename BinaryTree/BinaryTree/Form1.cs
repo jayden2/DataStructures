@@ -18,19 +18,17 @@ namespace BinaryTree
         }
         //initialise
         Tree BTree;
-        Boolean firstValue = true;
+        bool firstValue = true;
 
         //add value button click
         private void addValue_Click(object sender, EventArgs e)
         {
-            int num;
-            
-            //try to convert text input to num
-            bool check = Int32.TryParse(numText.Text, out num);
-
-            //if can parse to num add to binary tree
-            if (check)
+            //Check parse if value can be converted
+            if (CheckParse(numText.Text))
             {
+                //Because check parse return true below parse will work
+                int num = Int32.Parse(numText.Text);
+                numText.Text = "";
                 Console.WriteLine("//-------------------------");
                 Console.WriteLine("Adding number: {0}", num);
                 //check if its the first value of the tree, if so then put it to the top, otherwise just add it to the tree
@@ -39,17 +37,47 @@ namespace BinaryTree
                     BTree = new Tree(num);
                     Console.WriteLine("{0} is now the top node", num);
                     firstValue = false;
+                    searchValue.Visible = true;
                 }
                 else
                 {
-                    BTree.StartAdd(num);
-                }   
+                    //if the tree has a top value start traversing if to then add the value to the tree
+                    BTree.StartTraverse(num, "add");
+                }
+            }
+        }
+
+        private void searchValue_Click(object sender, EventArgs e)
+        {
+            if (CheckParse(numText.Text))
+            {
+                //Because check parse return true below parse will work
+                int num = Int32.Parse(numText.Text);
+                numText.Text = "";
+                Console.WriteLine("//-------------------------");
+                Console.WriteLine("Searching for number: {0}", num);
+                //Strart traversal
+                BTree.StartTraverse(num, "search");
+            }
+        }
+
+        //check parsing of inputted value is an int
+        private bool CheckParse(string text)
+        {
+            int num;
+            //try to convert text input to num
+            bool check = Int32.TryParse(text, out num);
+            if (check)
+            {
+                return true;
             }
             else
             {
-                Console.WriteLine("Failed to convert: {0}", numText.Text);
+                Console.WriteLine("Failed to convert: {0}", text);
+                return false;
             }
         }
+
     }
 
     //create class node
@@ -89,11 +117,53 @@ namespace BinaryTree
         }
 
         //enter value to start node traversal
-        public void StartAdd(int value)
+        public void StartTraverse(int value, String type)
         {
-            Add(ref top, value);
+            switch(type)
+            {
+                case "add":
+                    Add(ref top, value);
+                    break;
+                default:
+                    Search(ref top, value);
+                    break;
+            }
+            
         }
+        //recurcisve search
+        private void Search(ref Node currentNode, int value)
+        {
+            //if current node is null then add value to that node
+            if (currentNode == null)
+            {
+  
+                Console.WriteLine("{0} not found!", value);
+                return;
+            }
 
+            //if current node's value is equal to what you were looking, value found
+            if (currentNode.value == value)
+            {
+                Console.WriteLine("Found {0}!", value);
+                return;
+            }
+
+            //if value is less than current nodes value, traverse LEFT
+            if (value < currentNode.value)
+            {
+                Console.WriteLine("{0} < {1}, going left", value, currentNode.value);
+                Search(ref currentNode.left, value);
+                return;
+            }
+
+            //if value is more than or equal to current nodes value, traverse RIGHT
+            if (value >= currentNode.value)
+            {
+                Console.WriteLine("{0} >= {1}, going right", value, currentNode.value);
+                Search(ref currentNode.right, value);
+                return;
+            }
+        }
         //recursive add
         private void Add(ref Node currentNode, int value)
         {
@@ -109,7 +179,7 @@ namespace BinaryTree
             //if value is less than current nodes value, traverse LEFT
             if (value < currentNode.value)
             {
-                Console.WriteLine("{0} is less than {1}, going left", value, currentNode.value);
+                Console.WriteLine("{0} < {1}, going left", value, currentNode.value);
                 Add(ref currentNode.left, value);
                 return;
             }
@@ -117,7 +187,7 @@ namespace BinaryTree
             //if value is more than or equal to current nodes value, traverse RIGHT
             if (value >= currentNode.value)
             {
-                Console.WriteLine("{0} is more than or equal to {1}, going right", value, currentNode.value);
+                Console.WriteLine("{0} >= {1}, going right", value, currentNode.value);
                 Add(ref currentNode.right, value);
                 return;
             }
