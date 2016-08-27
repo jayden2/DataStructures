@@ -40,7 +40,7 @@
             this.addValue.Name = "addValue";
             this.addValue.Size = new System.Drawing.Size(99, 23);
             this.addValue.TabIndex = 0;
-            this.addValue.Text = "Add Value";
+            this.addValue.Text = "Start Tree";
             this.addValue.UseVisualStyleBackColor = true;
             this.addValue.Click += new System.EventHandler(this.addValue_Click);
             // 

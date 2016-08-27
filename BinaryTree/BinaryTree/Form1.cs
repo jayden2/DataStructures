@@ -36,6 +36,7 @@ namespace BinaryTree
                 {
                     BTree = new Tree(num);
                     Console.WriteLine("{0} is now the top node", num);
+                    addValue.Text = "Add Value";
                     firstValue = false;
                     searchValue.Visible = true;
                     deleteValue.Visible = true;
@@ -56,7 +57,6 @@ namespace BinaryTree
                 //Because check parse return true below parse will work
                 int num = Int32.Parse(numText.Text);
                 numText.Text = "";
-                Console.WriteLine("//-------------------------");
                 Console.WriteLine("Searching for number: {0}", num);
                 //Strart traversal
                 BTree.StartTraverse(num, "search");
@@ -71,7 +71,6 @@ namespace BinaryTree
                 //Because check parse return true below parse will work
                 int num = Int32.Parse(numText.Text);
                 numText.Text = "";
-                Console.WriteLine("//-------------------------");
                 Console.WriteLine("Deleting number: {0}", num);
                 //Strart traversal
                 BTree.StartTraverse(num, "delete");
@@ -82,6 +81,7 @@ namespace BinaryTree
         private bool CheckParse(string text)
         {
             int num;
+            Console.WriteLine("//-------------------------");
             //try to convert text input to num
             bool check = Int32.TryParse(text, out num);
             if (check)
@@ -176,6 +176,7 @@ namespace BinaryTree
                 {
                     Console.WriteLine("Current node has child on right, moving right child to current node", value);
                     currentNode = currentNode.right;
+                    Console.WriteLine("{0} is now replaced with {1}", value, currentNode.value);
                     return;
                 }
                 //case of if current node has only one child on left
@@ -183,6 +184,15 @@ namespace BinaryTree
                 {
                     Console.WriteLine("Current node has child on left, moving left child to current node", value);
                     currentNode = currentNode.left;
+                    Console.WriteLine("{0} is now replaced with {1}", value, currentNode.value);
+                    return;
+                }
+                //case of if current node has two children
+                if (currentNode.left != null && currentNode.right != null)
+                {
+                    Console.WriteLine("Current node has children on left and right");
+                    currentNode.value = DeleteChilrenTraversal(ref currentNode.right);
+                    Console.WriteLine("{0} is now replaced with {1}", value, currentNode.value);
                     return;
                 }
             }
@@ -203,6 +213,40 @@ namespace BinaryTree
                 return;
             }
         }
+
+        //part of delete, method is called for deleteion when there are two chilren
+        //deletion insersts right side of the nodes child
+        private int DeleteChilrenTraversal(ref Node currentNode)
+        {
+            if (currentNode.left == null)
+            {
+                //if left does equal null hold it
+                Console.WriteLine("{0} found with no left child!", currentNode.value);
+                Node currentNodeHolder = currentNode;
+                
+                //if  the right side of this current node has a child, make it that
+                if (currentNode.right != null)
+                {
+                    Console.WriteLine("{0} has a right child, replacing this node with right child", currentNode.value);
+                    currentNode = currentNode.right;
+                }
+                else
+                {
+                    //otherwise just make this node null
+                    Console.WriteLine("Found node is now empty");
+                    currentNode = null;
+                }
+                //return value to replace the deleted value
+                return currentNodeHolder.value;
+            }
+            else
+            {
+                //traverse down the left side of the tree if it isnt null to find the highest minimum value
+                Console.WriteLine("{0} has a child on the left, going left", currentNode.value);
+                return DeleteChilrenTraversal(ref currentNode.left);
+            }           
+        }
+
 
         //recurcisve search
         private void Search(ref Node currentNode, int value)
