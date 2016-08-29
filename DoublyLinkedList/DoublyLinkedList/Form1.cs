@@ -82,6 +82,7 @@ namespace DoublyLinkedList
             DLL.DoubleLinkStart(value, "delete", 0);
         }
 
+        //traverse button click
         private void travseBtn_Click(object sender, EventArgs e)
         {
             Console.WriteLine("//-------------------------");
@@ -133,6 +134,7 @@ namespace DoublyLinkedList
             firstLink = new DoubleLink(value);
         }
 
+        //start call for doubly linked list go to to recursing calls of add, delete, search, edit or traverse
         public void DoubleLinkStart(int value, String type, int newValue)
         {
             switch(type)
@@ -163,12 +165,14 @@ namespace DoublyLinkedList
             if (currentLink.nextLink == null)
             {
                 Console.WriteLine("Current node doesnt have a next link, adding node here");
+                //create new link node and put in next link to chain them up
                 DoubleLink newNode = new DoubleLink(value, currentLink);
                 currentLink.nextLink = newNode;
                 Console.WriteLine("created Node with value: {0}", value);
                 return;
             } else
             {
+                //recursively call add
                 Add(ref currentLink.nextLink, value);
             }
         }
@@ -192,13 +196,17 @@ namespace DoublyLinkedList
                     currentLink = currentLink.nextLink;
                     return;
                 }
-                //if current nodes next or prev node links are null then just remove the links reference
+                //if current link's next node is null then just make this link null
+                //and remove reference to this link in the previous link
                 else if (currentLink.nextLink == null)
                 {
                     Console.WriteLine("there is no reference to a next node, removing current node");
+                    currentLink.previousLink.nextLink = null;
                     currentLink = null;
                     return;
                 }
+                //if previous link is is null (probably means its the first node
+                //then make next node this node
                 else if (currentLink.previousLink == null)
                 {
                     Console.WriteLine("there is no reference to a previous node making next node this node");
@@ -250,12 +258,16 @@ namespace DoublyLinkedList
         }
         private void Traverse(ref DoubleLink currentLink, String direction)
         {
+            //display value of current links value
             Console.WriteLine("Current Value: {0}", currentLink.value);
+
+            //if direction is fowards and there is a next link traverse forwards
             if (direction == "f" && currentLink.nextLink != null)
             {
                 Console.WriteLine("Traversing FORWARDS");
                 Traverse(ref currentLink.nextLink, "f");
                 return;
+            //if there is a previous link go backwards, and direction is b so doesnt call direction forwards next..
             } else if (currentLink.previousLink != null)
             {
                 Console.WriteLine("Traversing BACKWARDS");
@@ -263,7 +275,9 @@ namespace DoublyLinkedList
                 return;
             } else
             {
+                //if no more backwards displayed whole list
                 Console.WriteLine("Traversed whole doubly linked list.");
+                return;
             }
         }
     }
