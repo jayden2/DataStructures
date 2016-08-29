@@ -16,8 +16,78 @@ namespace DoublyLinkedList
         {
             InitializeComponent();
         }
+        //initialise doubly linked list and value
+        DoublyLinkedList DLL;
+        bool firstValue = true;
 
+        //add value button click
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            int value = Int32.Parse(input.Text);
+            input.Text = "";
+            Console.WriteLine("//-------------------------");
+            Console.WriteLine("Adding value: {0}", value);
 
+            //check if first value inputed to set up the doubly linked list and make other buttons visible
+            if (firstValue)
+            {
+                DLL = new DoublyLinkedList(value);
+                Console.WriteLine("{0} is the first link", value);
+                addBtn.Text = "Input";
+                firstValue = false;
+                searchBtn.Visible = true;
+                deleteBtn.Visible = true;
+                editBtn.Visible = true;
+                editLabel.Visible = true;
+                inputEdit.Visible = true;
+                travseBtn.Visible = true;
+            }
+            else
+            {
+                DLL.DoubleLinkStart(value, "add", 0);
+            }
+        }
+
+        //search button click
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            int value = Int32.Parse(input.Text);
+            input.Text = "";
+            Console.WriteLine("//-------------------------");
+            Console.WriteLine("Searching for value: {0}", value);
+
+            DLL.DoubleLinkStart(value, "search", 0);
+        }
+
+        //edit button click
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            int value = Int32.Parse(input.Text);
+            int editValue = Int32.Parse(inputEdit.Text);
+            input.Text = "";
+            Console.WriteLine("//-------------------------");
+            Console.WriteLine("Searching and Editing value: {0} with value: {1}", value, editValue);
+
+            DLL.DoubleLinkStart(value, "edit", editValue);
+        }
+
+        //delete button click
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            int value = Int32.Parse(input.Text);
+            input.Text = "";
+            Console.WriteLine("//-------------------------");
+            Console.WriteLine("Deleting value: {0}", value);
+
+            DLL.DoubleLinkStart(value, "delete", 0);
+        }
+
+        private void travseBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("//-------------------------");
+            Console.WriteLine("Traversing Doubly Linked List");
+            DLL.DoubleLinkStart(0, "traverse", 0);
+        }
     }
 
     //double link class
@@ -63,38 +133,138 @@ namespace DoublyLinkedList
             firstLink = new DoubleLink(value);
         }
 
-        public void DoubleLinkFunction(int value, String type)
+        public void DoubleLinkStart(int value, String type, int newValue)
         {
             switch(type)
             {
                 case "add":
-                    Add();
+                    Add(ref firstLink, value);
                     break;
                 case "delete":
-                    Delete();
+                    Delete(ref firstLink, value);
+                    break;
+                case "edit":
+                    Search(ref firstLink, value, newValue, "edit");
+                    break;
+                case "traverse":
+                    Traverse(ref firstLink, "f");
                     break;
                 default:
-                    Search();
+                    Search(ref firstLink, value, 0, "search");
                     break;
             }
         }
 
         //ADD
-        private void Add(int value, int position)
+        private void Add(ref DoubleLink currentLink, int value)
         {
-
+            Console.WriteLine("Traversing list forwards, current value is: {0}", currentLink.value);
+            //if current node is null then add value to that node
+            if (currentLink.nextLink == null)
+            {
+                Console.WriteLine("Current node doesnt have a next link, adding node here");
+                DoubleLink newNode = new DoubleLink(value, currentLink);
+                currentLink.nextLink = newNode;
+                Console.WriteLine("created Node with value: {0}", value);
+                return;
+            } else
+            {
+                Add(ref currentLink.nextLink, value);
+            }
         }
 
         //DELETE
-        private void Delete()
+        private void Delete(ref DoubleLink currentLink, int value)
         {
+            Console.WriteLine("Traversing list forwards, current value is: {0}", currentLink.value);
 
+            //if value is found print to console and go to deletion case
+            if (currentLink.value == value)
+            {
+                Console.WriteLine("Current node with value: {0}, found! Preparing to delete.", currentLink.value);
+
+                //if previous and next links nodes are both not equal to null, make previously links
+                //next node link equal current links next node link
+                //hope that makes sense lol
+                if (currentLink.previousLink != null && currentLink.nextLink != null)
+                {
+                    Console.WriteLine("making next node link to previous link, and remove current node");
+                    currentLink = currentLink.nextLink;
+                    return;
+                }
+                //if current nodes next or prev node links are null then just remove the links reference
+                else if (currentLink.nextLink == null)
+                {
+                    Console.WriteLine("there is no reference to a next node, removing current node");
+                    currentLink = null;
+                    return;
+                }
+                else if (currentLink.previousLink == null)
+                {
+                    Console.WriteLine("there is no reference to a previous node making next node this node");
+                    currentLink = currentLink.nextLink;
+                    return;
+                }
+            }
+                //if next node is null then value cannot be deleted
+                if (currentLink.nextLink == null)
+            {
+                Console.WriteLine("{0} not found, cannot delete!", value);
+                return;
+            }
+            else
+            {
+                Delete(ref currentLink.nextLink, value);
+            }
         }
 
-        //SEARCH
-        private void Search()
+        //SEARCH && EDIT
+        private void Search(ref DoubleLink currentLink, int value, int newValue, String type)
         {
+            Console.WriteLine("Traversing list forwards, current value is: {0}", currentLink.value);
 
+            //if search type is search and value is found display it and return
+            if (type == "search" && currentLink.value == value)
+            {
+                Console.WriteLine("Found value: {0}", currentLink.value);
+                return;
+            } else if (type == "edit" && currentLink.value == value)
+            {
+                //if search type is edit and value is found replace it with new value and return
+                Console.WriteLine("Found value: {0}", currentLink.value);
+                currentLink.value = newValue;
+                Console.WriteLine("Current nodes value is now: {0}", currentLink.value);
+                return;
+            }
+            //if current node is null then searched value doesnt exist
+            if (currentLink.nextLink == null)
+            {
+                Console.WriteLine("{0} not found!", value);
+                return;
+            }
+            else
+            {
+                //recursivly search list
+                Search(ref currentLink.nextLink, value, newValue, type);
+            }
+        }
+        private void Traverse(ref DoubleLink currentLink, String direction)
+        {
+            Console.WriteLine("Current Value: {0}", currentLink.value);
+            if (direction == "f" && currentLink.nextLink != null)
+            {
+                Console.WriteLine("Traversing FORWARDS");
+                Traverse(ref currentLink.nextLink, "f");
+                return;
+            } else if (currentLink.previousLink != null)
+            {
+                Console.WriteLine("Traversing BACKWARDS");
+                Traverse(ref currentLink.previousLink, "b");
+                return;
+            } else
+            {
+                Console.WriteLine("Traversed whole doubly linked list.");
+            }
         }
     }
 }
