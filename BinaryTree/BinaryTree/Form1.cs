@@ -100,6 +100,27 @@ namespace BinaryTree
             }
         }
 
+        //Traverse display inorder
+        private void inorder_btn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("//-------------------------");
+            BTree.StartTraverse(0, "inorder", "");
+        }
+
+        //Traverse display preorder
+        private void preorder_btn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("//-------------------------");
+            BTree.StartTraverse(0, "preorder", "");
+        }
+
+        //Traverse display postorder
+        private void postorder_btn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("//-------------------------");
+            BTree.StartTraverse(0, "postorder", "");
+        }
+
         //check parsing of inputted value is an int
         private bool CheckParse(string text)
         {
@@ -170,6 +191,15 @@ namespace BinaryTree
                     break;
                 case "edit":
                     Search(ref top, value, data, "edit");
+                    break;
+                case "inorder":
+                    Inorder(ref top);
+                    break;
+                case "preorder":
+                    Preorder(ref top);
+                    break;
+                case "postorder":
+                    Postorder(ref top);
                     break;
                 default:
                     Search(ref top, value, data, "search");
@@ -344,6 +374,24 @@ namespace BinaryTree
                 Add(ref currentNode.right, value, data);
                 return;
             }
+        }
+
+        //Traverse tree print tree inorder
+        private void Inorder(ref Node currentNode)
+        {
+
+        }
+
+        //Traverse tree print tree preorder
+        private void Preorder(ref Node currentNode)
+        {
+
+        }
+
+        //Traverse tree print tree postorder
+        private void Postorder(ref Node currentNode)
+        {
+
         }
     }
 }

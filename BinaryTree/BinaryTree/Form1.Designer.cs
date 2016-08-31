@@ -36,6 +36,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.searchEdit = new System.Windows.Forms.Button();
+            this.inorder_btn = new System.Windows.Forms.Button();
+            this.preorder_btn = new System.Windows.Forms.Button();
+            this.postorder_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addValue
@@ -115,11 +118,47 @@
             this.searchEdit.Visible = false;
             this.searchEdit.Click += new System.EventHandler(this.searchEdit_Click);
             // 
+            // inorder_btn
+            // 
+            this.inorder_btn.Location = new System.Drawing.Point(12, 9);
+            this.inorder_btn.Name = "inorder_btn";
+            this.inorder_btn.Size = new System.Drawing.Size(109, 23);
+            this.inorder_btn.TabIndex = 8;
+            this.inorder_btn.Text = "Traverse Inorder";
+            this.inorder_btn.UseVisualStyleBackColor = true;
+            this.inorder_btn.Visible = false;
+            this.inorder_btn.Click += new System.EventHandler(this.inorder_btn_Click);
+            // 
+            // preorder_btn
+            // 
+            this.preorder_btn.Location = new System.Drawing.Point(12, 37);
+            this.preorder_btn.Name = "preorder_btn";
+            this.preorder_btn.Size = new System.Drawing.Size(109, 23);
+            this.preorder_btn.TabIndex = 9;
+            this.preorder_btn.Text = "Traverse Preorder";
+            this.preorder_btn.UseVisualStyleBackColor = true;
+            this.preorder_btn.Visible = false;
+            this.preorder_btn.Click += new System.EventHandler(this.preorder_btn_Click);
+            // 
+            // postorder_btn
+            // 
+            this.postorder_btn.Location = new System.Drawing.Point(12, 66);
+            this.postorder_btn.Name = "postorder_btn";
+            this.postorder_btn.Size = new System.Drawing.Size(109, 23);
+            this.postorder_btn.TabIndex = 10;
+            this.postorder_btn.Text = "Traverse Postorder";
+            this.postorder_btn.UseVisualStyleBackColor = true;
+            this.postorder_btn.Visible = false;
+            this.postorder_btn.Click += new System.EventHandler(this.postorder_btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 480);
+            this.ClientSize = new System.Drawing.Size(571, 134);
+            this.Controls.Add(this.postorder_btn);
+            this.Controls.Add(this.preorder_btn);
+            this.Controls.Add(this.inorder_btn);
             this.Controls.Add(this.searchEdit);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -145,6 +184,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button searchEdit;
+        private System.Windows.Forms.Button inorder_btn;
+        private System.Windows.Forms.Button preorder_btn;
+        private System.Windows.Forms.Button postorder_btn;
     }
 }
 
