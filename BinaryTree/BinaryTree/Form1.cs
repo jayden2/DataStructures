@@ -43,6 +43,9 @@ namespace BinaryTree
                     searchValue.Visible = true;
                     deleteValue.Visible = true;
                     searchEdit.Visible = true;
+                    inorder_btn.Visible = true;
+                    preorder_btn.Visible = true;
+                    postorder_btn.Visible = true;
                 }
                 else
                 {
@@ -104,6 +107,7 @@ namespace BinaryTree
         private void inorder_btn_Click(object sender, EventArgs e)
         {
             Console.WriteLine("//-------------------------");
+            Console.WriteLine("Traverse binary tree inorder");
             BTree.StartTraverse(0, "inorder", "");
         }
 
@@ -111,6 +115,7 @@ namespace BinaryTree
         private void preorder_btn_Click(object sender, EventArgs e)
         {
             Console.WriteLine("//-------------------------");
+            Console.WriteLine("Traverse binary tree preorder");
             BTree.StartTraverse(0, "preorder", "");
         }
 
@@ -118,6 +123,7 @@ namespace BinaryTree
         private void postorder_btn_Click(object sender, EventArgs e)
         {
             Console.WriteLine("//-------------------------");
+            Console.WriteLine("Traverse binary tree postorder");
             BTree.StartTraverse(0, "postorder", "");
         }
 
@@ -377,21 +383,57 @@ namespace BinaryTree
         }
 
         //Traverse tree print tree inorder
+        //In this traversal method, left sub tree is called/visited first
+        //then root, then lastly the right sub tree
+        //--2-
+        //-1-3
         private void Inorder(ref Node currentNode)
         {
-
+            //if current node is not null enter method
+            if (currentNode != null)
+            {
+                //recursively call inorder with left side of tree/node end of left side of tree node 
+                Inorder(ref currentNode.left);
+                //then print value and data
+                Console.WriteLine("Current node num: {0} with data: {1}", currentNode.value, currentNode.data);
+                //call self again but on right, this means that if cannot go left, then go right
+                Inorder(ref currentNode.right);
+            }
         }
 
         //Traverse tree print tree preorder
+        //In this traversal method root node is visited first
+        //then left of the tree/nodes then right
+        //--1-
+        //-2-3
         private void Preorder(ref Node currentNode)
         {
+            //if current node is not null enter method
+            if (currentNode != null)
+            {
+                //first print value and data
+                Console.WriteLine("Current node num: {0} with data: {1}", currentNode.value, currentNode.data);
+                //then recursively call preorder through the left node
+                Preorder(ref currentNode.left);
+                //then recursively call preorder through the right node
+                Preorder(ref currentNode.right);
 
+            }
         }
 
         //Traverse tree print tree postorder
+        //In this traversal method root node is visited last
+        //Traverse left of the tree then call right
+        //--3
+        //-1--2
         private void Postorder(ref Node currentNode)
         {
-
+            //firstly recursively call post order through left node
+            Preorder(ref currentNode.left);
+            //then recursively call post order through right node
+            Preorder(ref currentNode.right);
+            //and then print value and data
+            Console.WriteLine("Current node num: {0} with data: {1}", currentNode.value, currentNode.data);
         }
     }
 }
