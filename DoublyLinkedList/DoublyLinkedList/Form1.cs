@@ -187,9 +187,8 @@ namespace DoublyLinkedList
             {
                 Console.WriteLine("Current node with value: {0}, found! Preparing to delete.", currentLink.value);
 
-                //if previous and next links nodes are both not equal to null, make previously links
-                //next node link equal current links next node link
-                //hope that makes sense lol
+                //if previous and next nodes are not null, make current node equal next nodes link
+                //hope that makes sense
                 if (currentLink.previousLink != null && currentLink.nextLink != null)
                 {
                     Console.WriteLine("making next node link to previous link, and remove current node");
