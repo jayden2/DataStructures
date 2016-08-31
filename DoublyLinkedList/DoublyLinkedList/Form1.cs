@@ -255,6 +255,8 @@ namespace DoublyLinkedList
                 Search(ref currentLink.nextLink, value, newValue, type);
             }
         }
+
+        //Traverse DLL forwards and then backwards 1, 2, 3, 2, 1
         private void Traverse(ref DoubleLink currentLink, String direction)
         {
             //display value of current links value
