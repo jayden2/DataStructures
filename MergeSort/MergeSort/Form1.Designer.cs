@@ -33,6 +33,8 @@
             this.num_input = new System.Windows.Forms.NumericUpDown();
             this.unsorted_lbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.sorted_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_input)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,30 +73,54 @@
             // unsorted_lbl
             // 
             this.unsorted_lbl.AutoSize = true;
-            this.unsorted_lbl.Location = new System.Drawing.Point(55, 110);
+            this.unsorted_lbl.Location = new System.Drawing.Point(55, 104);
             this.unsorted_lbl.Margin = new System.Windows.Forms.Padding(3, 0, 50, 0);
             this.unsorted_lbl.MaximumSize = new System.Drawing.Size(500, 0);
             this.unsorted_lbl.MinimumSize = new System.Drawing.Size(500, 0);
             this.unsorted_lbl.Name = "unsorted_lbl";
             this.unsorted_lbl.Size = new System.Drawing.Size(500, 13);
             this.unsorted_lbl.TabIndex = 4;
-            this.unsorted_lbl.Text = "label2";
+            this.unsorted_lbl.Text = "0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(52, 92);
+            this.label3.Location = new System.Drawing.Point(52, 86);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Unsorted Array:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(52, 150);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Sorted Array:";
+            // 
+            // sorted_lbl
+            // 
+            this.sorted_lbl.AutoSize = true;
+            this.sorted_lbl.Location = new System.Drawing.Point(55, 168);
+            this.sorted_lbl.Margin = new System.Windows.Forms.Padding(3, 0, 50, 0);
+            this.sorted_lbl.MaximumSize = new System.Drawing.Size(500, 0);
+            this.sorted_lbl.MinimumSize = new System.Drawing.Size(500, 0);
+            this.sorted_lbl.Name = "sorted_lbl";
+            this.sorted_lbl.Size = new System.Drawing.Size(500, 13);
+            this.sorted_lbl.TabIndex = 6;
+            this.sorted_lbl.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 260);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.sorted_lbl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.unsorted_lbl);
             this.Controls.Add(this.num_input);
@@ -115,6 +141,8 @@
         private System.Windows.Forms.NumericUpDown num_input;
         private System.Windows.Forms.Label unsorted_lbl;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label sorted_lbl;
     }
 }
 
