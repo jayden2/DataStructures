@@ -34,7 +34,7 @@ namespace MergeSort
             int numInput = 0;
             //parse search int
             int.TryParse(search_input.Value.ToString(), out numInput);
-            //StartBSearch();
+            BinarySearcher.BinarySearchInput(numInput, sortedList.ToArray());
         }
 
         //merge process to generate nums into a list and then sort it
