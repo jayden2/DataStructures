@@ -35,7 +35,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.sorted_lbl = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.search_lbl = new System.Windows.Forms.Label();
             this.search_btn = new System.Windows.Forms.Button();
             this.search_input = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.num_input)).BeginInit();
@@ -118,15 +118,16 @@
             this.sorted_lbl.TabIndex = 6;
             this.sorted_lbl.Text = "0";
             // 
-            // label4
+            // search_lbl
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(415, 225);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(178, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Search for num in sorted array";
+            this.search_lbl.AutoSize = true;
+            this.search_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.search_lbl.Location = new System.Drawing.Point(415, 225);
+            this.search_lbl.Name = "search_lbl";
+            this.search_lbl.Size = new System.Drawing.Size(178, 13);
+            this.search_lbl.TabIndex = 8;
+            this.search_lbl.Text = "Search for num in sorted array";
+            this.search_lbl.Visible = false;
             // 
             // search_btn
             // 
@@ -136,6 +137,7 @@
             this.search_btn.TabIndex = 10;
             this.search_btn.Text = "Search";
             this.search_btn.UseVisualStyleBackColor = true;
+            this.search_btn.Visible = false;
             this.search_btn.Click += new System.EventHandler(this.search_btn_Click);
             // 
             // search_input
@@ -144,6 +146,7 @@
             this.search_input.Name = "search_input";
             this.search_input.Size = new System.Drawing.Size(120, 20);
             this.search_input.TabIndex = 11;
+            this.search_input.Visible = false;
             // 
             // Form1
             // 
@@ -152,7 +155,7 @@
             this.ClientSize = new System.Drawing.Size(614, 302);
             this.Controls.Add(this.search_input);
             this.Controls.Add(this.search_btn);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.search_lbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.sorted_lbl);
             this.Controls.Add(this.label3);
@@ -178,7 +181,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label sorted_lbl;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label search_lbl;
         private System.Windows.Forms.Button search_btn;
         private System.Windows.Forms.NumericUpDown search_input;
     }

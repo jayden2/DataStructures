@@ -49,6 +49,11 @@ namespace MergeSort
             sortedList = MergeSorter.MergeSortInput(unsortedList);
             String sortedString = BuildString(sortedList.ToArray());
             sorted_lbl.Text = sortedString;
+
+            //make binary search components visible as they're now possible to use
+            search_lbl.Visible = true;
+            search_input.Visible = true;
+            search_btn.Visible = true;
         }
         
         //build string from num array so it displays as: 1,2,3
