@@ -24,12 +24,9 @@ namespace Hashing
         {
             foreach(String item in sArray)
             {
-                Console.WriteLine("String: {0}", item);
+                Console.WriteLine("Storing String: {0}, in hashtable", item, item.GetHashCode());
+                sTable.Add(item.GetHashCode(), item);
             }
-
-            sTable.Add(1, sArray[0]);
-            sTable.Add(20, sArray[1]);
-            sTable.Add(15, sArray[2]);
         }
 
         public void listHashTable()
@@ -38,6 +35,11 @@ namespace Hashing
             {
                 Console.WriteLine("Key: {0}, Value: {1}", pair.Key, pair.Value);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         private void arrayHash_btn_Click(object sender, EventArgs e)
