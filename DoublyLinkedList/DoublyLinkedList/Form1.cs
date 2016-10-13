@@ -18,7 +18,7 @@ namespace DoublyLinkedList
         }
         //initialise doubly linked list and value
         DoublyLinkedList DLL;
-        bool firstValue = true;
+        Storage store = new Storage(true);
 
         //add value button click
         private void addBtn_Click(object sender, EventArgs e)
@@ -29,12 +29,12 @@ namespace DoublyLinkedList
             Console.WriteLine("Adding value: {0}", value);
 
             //check if first value inputed to set up the doubly linked list and make other buttons visible
-            if (firstValue)
+            if (store._FirstValue)
             {
                 DLL = new DoublyLinkedList(value);
                 Console.WriteLine("{0} is the first link", value);
                 addBtn.Text = "Input";
-                firstValue = false;
+                store._FirstValue = false;
                 searchBtn.Visible = true;
                 deleteBtn.Visible = true;
                 editBtn.Visible = true;
@@ -44,7 +44,7 @@ namespace DoublyLinkedList
             }
             else
             {
-                DLL.DoubleLinkStart(value, "add", 0);
+                DLL.DoubleLinkStart(value, "add", 0, store);
             }
         }
 
@@ -56,7 +56,7 @@ namespace DoublyLinkedList
             Console.WriteLine("//-------------------------");
             Console.WriteLine("Searching for value: {0}", value);
 
-            DLL.DoubleLinkStart(value, "search", 0);
+            DLL.DoubleLinkStart(value, "search", 0, store);
         }
 
         //edit button click
@@ -68,7 +68,7 @@ namespace DoublyLinkedList
             Console.WriteLine("//-------------------------");
             Console.WriteLine("Searching and Editing value: {0} with value: {1}", value, editValue);
 
-            DLL.DoubleLinkStart(value, "edit", editValue);
+            DLL.DoubleLinkStart(value, "edit", editValue, store);
         }
 
         //delete button click
@@ -79,7 +79,18 @@ namespace DoublyLinkedList
             Console.WriteLine("//-------------------------");
             Console.WriteLine("Deleting value: {0}", value);
 
-            DLL.DoubleLinkStart(value, "delete", 0);
+            DLL.DoubleLinkStart(value, "delete", 0, store);
+
+            if (store._FirstValue == true)
+            {
+                addBtn.Text = "Start List";
+                searchBtn.Visible = false;
+                deleteBtn.Visible = false;
+                editBtn.Visible = false;
+                editLabel.Visible = false;
+                inputEdit.Visible = false;
+                travseBtn.Visible = false;
+            }
         }
 
         //traverse button click
@@ -87,7 +98,7 @@ namespace DoublyLinkedList
         {
             Console.WriteLine("//-------------------------");
             Console.WriteLine("Traversing Doubly Linked List");
-            DLL.DoubleLinkStart(0, "traverse", 0);
+            DLL.DoubleLinkStart(0, "traverse", 0, store);
         }
     }
 
@@ -135,15 +146,15 @@ namespace DoublyLinkedList
         }
 
         //start call for doubly linked list go to to recursing calls of add, delete, search, edit or traverse
-        public void DoubleLinkStart(int value, String type, int newValue)
+        public void DoubleLinkStart(int value, String type, int newValue, Storage store)
         {
-            switch(type)
+            switch (type)
             {
                 case "add":
                     Add(ref firstLink, value);
                     break;
                 case "delete":
-                    Delete(ref firstLink, value);
+                    Delete(ref firstLink, value, store);
                     break;
                 case "edit":
                     Search(ref firstLink, value, newValue, "edit");
@@ -178,7 +189,7 @@ namespace DoublyLinkedList
         }
 
         //DELETE
-        private void Delete(ref DoubleLink currentLink, int value)
+        private void Delete(ref DoubleLink currentLink, int value, Storage store)
         {
             Console.WriteLine("Traversing list forwards, current value is: {0}", currentLink.value);
 
@@ -201,8 +212,17 @@ namespace DoublyLinkedList
                 else if (currentLink.nextLink == null)
                 {
                     Console.WriteLine("there is no reference to a next node, removing current node");
-                    currentLink.previousLink.nextLink = null;
-                    currentLink = null;
+                    if (currentLink.previousLink == null)
+                    {
+                        currentLink = null;
+                        firstLink = null;
+                        store._FirstValue = true;
+                    }
+                    else
+                    {
+                        currentLink.previousLink.nextLink = null;
+                        currentLink = null;
+                    }
                     return;
                 }
                 //if previous link is is null (probably means its the first node
@@ -214,15 +234,15 @@ namespace DoublyLinkedList
                     return;
                 }
             }
-                //if next node is null then value cannot be deleted
-                if (currentLink.nextLink == null)
+            //if next node is null then value cannot be deleted
+            else if (currentLink.nextLink == null)
             {
                 Console.WriteLine("{0} not found, cannot delete!", value);
                 return;
             }
             else
             {
-                Delete(ref currentLink.nextLink, value);
+                Delete(ref currentLink.nextLink, value, store);
             }
         }
 
@@ -269,7 +289,7 @@ namespace DoublyLinkedList
                 Console.WriteLine("Traversing FORWARDS");
                 Traverse(ref currentLink.nextLink, "f");
                 return;
-            //if there is a previous link go backwards, and direction is b so doesnt call direction forwards next..
+                //if there is a previous link go backwards, and direction is b so doesnt call direction forwards next..
             } else if (currentLink.previousLink != null)
             {
                 Console.WriteLine("Traversing BACKWARDS");
