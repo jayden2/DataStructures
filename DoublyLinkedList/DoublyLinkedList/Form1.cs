@@ -193,6 +193,7 @@ namespace DoublyLinkedList
                 {
                     Console.WriteLine("making next node link to previous link, and remove current node");
                     currentLink = currentLink.nextLink;
+                    currentLink.previousLink = currentLink.previousLink.previousLink;
                     return;
                 }
                 //if current link's next node is null then just make this link null
