@@ -23,6 +23,10 @@ namespace DoublyLinkedList
         //add value button click
         private void addBtn_Click(object sender, EventArgs e)
         {
+            if (input.Text == "")
+            {
+                return;
+            }
             int value = Int32.Parse(input.Text);
             input.Text = "";
             Console.WriteLine("//-------------------------");
@@ -231,6 +235,7 @@ namespace DoublyLinkedList
                 {
                     Console.WriteLine("there is no reference to a previous node making next node this node");
                     currentLink = currentLink.nextLink;
+                    currentLink.previousLink = null;
                     return;
                 }
             }
